@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default class DisplayListLive extends Component{
+  constructor(){
+    super();
+    this.state = {
+      filterInput: '',
+      list: [
+        "apples",
+        "grapes",
+        "pineapple",
+        "pears",
+        "strawberries",
+        "plums"
+      ]
+    }
+  }
 
-export default App;
+  handleChange(val){
+    return(
+      this.setState({filterInput: val})
+    )
+  }
+  render(){
+
+    let filteredList = this.state.list
+    .filter((e,i) => {
+      return e.includes(this.state.filterInput)})
+    .map( (e,i) => {
+      return  (<h2 key={i}>{e}</h2>)
+      })
+    
+    return(
+      <div>
+      <input onChange={ (e) => this.handleChange(e.target.value)}></input>
+      <span>{filteredList}</span>
+      
+      </div>
+
+
+    )
+  }
+
+}
+ 
+
